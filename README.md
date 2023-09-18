@@ -22,7 +22,7 @@ install it (`pip install torch`). Otherwise, follow the installation directions
 Other miscellaneous packages that you will need can be installed using the 
 `requirements.txt` file (`pip install -r requirements.txt`).
 
-We recommand to use Conda to manage your environments. You can find how you install Conda [here](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html).
+We recommand to use Conda to manage your environments. You can find how to install Conda [here](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html).
 
 A non-GPU installation is as follows:
 ```
