@@ -9,7 +9,7 @@ You are expected to submit
 - Writeup: a webpage that shows your results and anaylsis (if applicable).
 - Source code: a zip file of your code. Please include a README file with instructions to reproduce your results.
 
-To create a webpage, we recommend using [MarkDeep](https://casual-effects.com/markdeep/).
+To create a webpage, we recommend using [MarkDeep](https://casual-effects.com/markdeep/). We have provided a template `report_example/starter.md.html`.
 
 ## 0. Setup
 
@@ -40,9 +40,9 @@ be able to run locally on a CPU.
 To render a mesh using Pytorch3D, you will need a mesh that defines the geometry and
 texture of an object, a camera that defines the viewpoint, and a Pytorch3D renderer
 that encapsulates rasterization and shading parameters. You can abstract away the
-renderer using the `get_renderer` wrapper function in `utils.py`:
+renderer using the `get_mesh_renderer` wrapper function in `utils.py`:
 ```python
-renderer = get_renderer(image_size=512)
+renderer = get_mesh_renderer(image_size=512)
 ```
 
 Meshes in Pytorch3D are defined by a list of vertices, faces, and texture information.
@@ -187,9 +187,6 @@ Your final output should look something like this:
 ![Cow render](images/cow_retextured.jpg)
 
 In this case, `color1 = [0, 0, 1]` and `color2 = [1, 0, 0]`.
-
-**In your submission, describe your choice of `color1` and `color2`, and include a gif of the
-rendered mesh.**
 
 **In your submission, describe your choice of `color1` and `color2`, and include a gif of the
 rendered mesh.**
