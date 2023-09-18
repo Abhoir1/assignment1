@@ -1,4 +1,5 @@
 # CMSC848F - Assignment 1: Rendering Basics with PyTorch3D   (Total: 100 Points)
+**Credit**: This assignment is modified from [CMU 3D Vision course](https://learning3d.github.io/). 
 
 Goals: In this assignment, you will learn the basics of rendering with PyTorch3D,
 explore 3D representations, and practice constructing simple geometry.
