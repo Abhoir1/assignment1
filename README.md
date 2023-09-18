@@ -9,6 +9,8 @@ You are expected to submit
 - Writeup: a webpage that shows your results and anaylsis (if applicable).
 - Source code: a zip file of your code. Please include a README file with instructions to reproduce your results.
 
+To create a webpage, we recommend using [MarkDeep](https://casual-effects.com/markdeep/).
+
 ## 0. Setup
 
 You will need to install Pytorch3d. See the directions for your platform
