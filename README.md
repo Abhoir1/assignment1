@@ -46,6 +46,8 @@ renderer using the `get_mesh_renderer` wrapper function in `utils.py`:
 renderer = get_mesh_renderer(image_size=512)
 ```
 
+More information about the renderer can be found [here](https://pytorch3d.org/docs/renderer_getting_started).
+
 Meshes in Pytorch3D are defined by a list of vertices, faces, and texture information.
 We will be using per-vertex texture features that assign an RGB color to each vertex.
 You can construct a mesh using the `pytorch3d.structures.Meshes` class:
