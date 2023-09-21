@@ -35,8 +35,8 @@ pip install -r requirements.txt
 
 A GPU installation is as follows (tested on a Linux machine):
 ```
-conda create -n pytorch3d python=3.9
-conda activate pytorch3d
+conda create -n pytorch3d-env python=3.9
+conda activate pytorch3d-env
 conda install pytorch=1.13.0 torchvision pytorch-cuda=11.6 -c pytorch -c nvidia
 conda install -c fvcore -c iopath -c conda-forge fvcore iopath
 pip install -r requirements.txt
