@@ -33,6 +33,15 @@ pip install 'git+https://github.com/facebookresearch/pytorch3d.git@stable'
 pip install -r requirements.txt
 ```
 
+A GPU installation is as follows (tested on a Linux machine):
+```
+conda create -n pytorch3d python=3.9
+conda activate pytorch3d
+conda install pytorch=1.13.0 torchvision pytorch-cuda=11.6 -c pytorch -c nvidia
+conda install -c fvcore -c iopath -c conda-forge fvcore iopath
+pip install -r requirements.txt
+```
+
 If you have access to a GPU, the rendering code may run faster, but everything should
 be able to run locally on a CPU.
 
