@@ -98,6 +98,7 @@ def render_sphere_mesh(image_size=256, voxel_size=64, device=None):
     mesh = pytorch3d.structures.Meshes([vertices], [faces], textures=textures).to(
         device
     )
+    
     lights = pytorch3d.renderer.PointLights(location=[[0, 0.0, -4.0]], device=device,)
     renderer = get_mesh_renderer(image_size=image_size, device=device)
     R, T = pytorch3d.renderer.look_at_view_transform(dist=3, elev=0, azim=180)

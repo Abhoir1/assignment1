@@ -20,17 +20,17 @@ def dolly_zoom(
     num_frames=10,
     duration=3,
     device=None,
-    output_file="output/dolly.gif",
+    output_file="outputs/dolly_zoom.gif",
 ):
     if device is None:
         device = get_device()
 
-    mesh = pytorch3d.io.load_objs_as_meshes(["cow_on_plane/cow_on_plane.obj"])
+    mesh = pytorch3d.io.load_objs_as_meshes(["data/cow_on_plane.obj"])
     mesh = mesh.to(device)
     renderer = get_mesh_renderer(image_size=image_size, device=device)
     lights = pytorch3d.renderer.PointLights(location=[[0.0, 0.0, -3.0]], device=device)
 
-    fovs = torch.linspace(5, 120, num_frames)
+    fovs = torch.linspace(120, 5, num_frames)
 
     renders = []
     for fov in tqdm(fovs):
@@ -54,7 +54,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--num_frames", type=int, default=10)
     parser.add_argument("--duration", type=float, default=3)
-    parser.add_argument("--output_file", type=str, default="images/dolly.gif")
+    parser.add_argument("--output_file", type=str, default="outputs/dolly_zoom.gif")
     parser.add_argument("--image_size", type=int, default=256)
     args = parser.parse_args()
     dolly_zoom(

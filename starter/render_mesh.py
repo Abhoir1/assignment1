@@ -9,6 +9,8 @@ import argparse
 import matplotlib.pyplot as plt
 import pytorch3d
 import torch
+import imageio
+
 
 from starter.utils import get_device, get_mesh_renderer, load_cow_mesh
 
@@ -48,17 +50,45 @@ def render_cow(
     # Place a point light in front of the cow.
     lights = pytorch3d.renderer.PointLights(location=[[0, 0, -3]], device=device)
 
-    rend = renderer(mesh, cameras=cameras, lights=lights)
-    rend = rend.cpu().numpy()[0, ..., :3]  # (B, H, W, 4) -> (H, W, 3)
-    # The .cpu moves the tensor to GPU (if needed).
-    return rend
+    output_path = "outputs/cow_rotation.gif"
+    num_frames = 60
+    fps = 15
+
+    # Create views for the 360-degree rotation
+    elevations = torch.linspace(0, 360, num_frames, device=device)
+    azimuths = torch.linspace(0, 360, num_frames, device=device)
+    images = []
+    for elevation, azimuth in zip(elevations, azimuths):
+        R, T = pytorch3d.renderer.look_at_view_transform(
+            dist=3.0,
+            elev=elevation,
+            azim=azimuth
+        )
+        cameras.R = R.to(device)
+        cameras.T = T.to(device)
+        rend = renderer(mesh, cameras=cameras, lights=lights)
+        rend = rend[0, ..., :3].cpu().numpy()  # (B, H, W, 4) -> (H, W, 3)
+        images.append(rend)
+
+    # Save the images as a gif
+    imageio.mimsave(output_path, images, fps=fps)
+
+    # rend1 = renderer(mesh, cameras=cameras, lights=lights)
+    # rend1 = rend.cpu().numpy()[0, ..., :3]  # (B, H, W, 4) -> (H, W, 3)
+    # # The .cpu moves the tensor to GPU (if needed).
+    # return rend1
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--cow_path", type=str, default="data/cow.obj")
-    parser.add_argument("--output_path", type=str, default="images/cow_render.jpg")
+    parser.add_argument("--output_path", type=str, default="outputs/cow_render.jpg")
     parser.add_argument("--image_size", type=int, default=256)
     args = parser.parse_args()
-    image = render_cow(cow_path=args.cow_path, image_size=args.image_size)
-    plt.imsave(args.output_path, image)
+    # image = render_cow(cow_path=args.cow_path, image_size=args.image_size)
+    # plt.imsave(args.output_path, image)
+
+    render_cow(
+        cow_path=args.cow_path,
+        image_size=args.image_size
+    )

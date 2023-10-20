@@ -14,11 +14,13 @@ from starter.utils import get_device, get_mesh_renderer
 
 def render_cow(
     cow_path="data/cow_with_axis.obj",
-    image_size=256,
-    R_relative=[[1, 0, 0], [0, 1, 0], [0, 0, 1]],
-    T_relative=[0, 0, 0],
+    image_size=512,
+    output_path = "images/transform_cow.jpg",
+    R_relative=[[0.99, 0, -0.017], [0, 1, 0], [0.017, 0, 0.99]],
+    T_relative=[0.6, -0.35, 0],
     device=None,
 ):
+    
     if device is None:
         device = get_device()
     meshes = pytorch3d.io.load_objs_as_meshes([cow_path]).to(device)
@@ -35,14 +37,29 @@ def render_cow(
     )
     lights = pytorch3d.renderer.PointLights(location=[[0, 0.0, -3.0]], device=device,)
     rend = renderer(meshes, cameras=cameras, lights=lights)
-    return rend[0, ..., :3].cpu().numpy()
+    image =  rend[0, ..., :3].cpu().numpy()
 
+    plt.imsave(output_path, image)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--cow_path", type=str, default="data/cow_with_axis.obj")
     parser.add_argument("--image_size", type=int, default=256)
-    parser.add_argument("--output_path", type=str, default="images/transform_cow.jpg")
+    # parser.add_argument("--output_path", type=str, default="images/transform_cow.jpg")
     args = parser.parse_args()
 
-    plt.imsave(args.output_path, render_cow(cow_path=args.cow_path, image_size=args.image_size))
+    render_cow(cow_path=args.cow_path, image_size=args.image_size, output_path= "outputs/tranform1.jpg",     R_relative=[[0, -1, 0], [1, 0, 0], [0, 0, 1]],
+    T_relative=[0, 0, 0])
+
+    render_cow(cow_path=args.cow_path, image_size=args.image_size, output_path= "outputs/tranform2.jpg",     R_relative=[[1, 0, 0], [0, 1, 0], [0, 0, 1]],
+    T_relative=[0, 0, 3])
+
+    render_cow(cow_path=args.cow_path, image_size=args.image_size, output_path= "outputs/tranform3.jpg",     R_relative=[[0.99, 0, -0.017], [0, 1, 0], [0.017, 0, 0.99]],
+    T_relative=[0.6, -0.35, 0])
+
+    render_cow(cow_path=args.cow_path, image_size=args.image_size, output_path= "outputs/tranform4.jpg",     R_relative=[[0, 0, -1], [0, 1, 0], [1, 0, 0]],
+    T_relative=[3, 0, 3])
+
+    # image1 = render_cow
+
+    # plt.imsave(args.output_path, render_cow(cow_path=args.cow_path, image_size=args.image_size))
